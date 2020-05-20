@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Full Image</title>
+	<link rel="stylesheet" href="css/kreFullImage.css">
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<script src="dist/kreFullImage.min.js"></script>
+
+	<style>
+		#images {
+			width: 400px;
+		}
+
+		#images img {
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div id="images">
+		<img src="img/sample.jpg" alt="sample image">
+	</div>
+
+	<script>
+		var fullImage = kreFullImage({
+			targets: "#images",
+			imageWrapClass: "fullImageWrap",
+			fullSizeActiveClass: "fullImageWrapActive",
+			event: {
+				initFullImage: function() {
+					console.log("initFullImage event");
+				},
+				destroyFullImage: function() {
+					console.log("destroyFullImage event");
+				},
+				startFullImage: function() {
+					console.log("startFullImage event");
+				},
+				stopFullImage: function() {
+					console.log("stopFullImage event");
+				},
+				beforeFullSize: function(_this) {
+					console.log("beforeFullSize event", _this);
+				},
+				afterFullSize: function(_this) {
+					console.log("afterFullSize event", _this);
+				},
+				beforeOriginSize: function(_this) {
+					console.log("beforeOriginSize event", _this);
+				},
+				afterOriginSize: function(_this) {
+					console.log("afterOriginSize event", _this);
+				},
+				resizedFullSize: function(activeClass) {
+					console.log("resizedFullSize event", activeClass);
+				}
+			}
+		});
+		
+		fullImage.start();
+	</script>
+</body>
+</html>
