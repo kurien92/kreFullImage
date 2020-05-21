@@ -1,5 +1,5 @@
 /**
- * kreFullImage v0.1
+ * kreFullImage v0.2
  * https://github.com/kurien92/kreFullImage
  */
 var kreFullImage = (function(options) {
@@ -32,20 +32,28 @@ var kreFullImage = (function(options) {
 			opts[i] = options[i];
 		}
 
+		var targetImages = $(opts.targets).find("img");
+		targetImages.wrap($("<div>", {
+			class: opts.imageWrapClass
+		}));
+		
 		opts.event.initFullImage();
 	}
 
 	function destroy() {
 		opts.event.destroyFullImage();
 		stop();
+
+		var targetImages = $(opts.targets).find("img");
+		
+		if(targetImages.parent("." + opts.imageWrapClass).length === 0) {
+			return;
+		}
+
+		targetImages.unwrap();
 	}
 
 	function start() {
-		var targetImages = $(opts.targets).find("img");
-		targetImages.wrap($("<div>", {
-			class: opts.imageWrapClass
-		}));
-		
 		eventOn();
 		opts.event.startFullImage();
 	}
@@ -58,14 +66,6 @@ var kreFullImage = (function(options) {
 		}
 
 		eventOff();
-
-		var targetImages = $(opts.targets).find("img");
-		
-		if(targetImages.parent("." + opts.imageWrapClass).length === 0) {
-			return;
-		}
-
-		targetImages.unwrap();
 	}
 
 	function eventOn() {
@@ -158,6 +158,28 @@ var kreFullImage = (function(options) {
 		stop: function() {
 			stop();
 			return this;
+		},
+		fullSize: function(imgSelector) {
+			imgSelector = $(imgSelector);
+
+			if(imgSelector.length > 1) {
+				imgSelector = $(imgSelector[0]);
+			}
+
+			imgSelector = imgSelector.parent("." + opts.imageWrapClass);
+
+			_fullSize(imgSelector);
+		},
+		originSize: function(imgSelector) {
+			imgSelector = $(imgSelector);
+
+			if(imgSelector.length > 1) {
+				imgSelector = $(imgSelector[0]);
+			}
+
+			imgSelector = imgSelector.parent("." + opts.imageWrapClass);
+
+			_originSize(imgSelector);
 		}
 	}
 

@@ -3,13 +3,13 @@
 단순히 전체화면 크기로 보여주는 것이 아니라 스크롤이 생기면서 가장 크게 보여줄 수 있도록 구현되었습니다.
 
 ## Update
-version 0.2
+**Ver 0.2**
 * README 문서 작성
 * fullImage.fullSize(imgSelector); 기능 추가
 * fullImage.originSize(imgSelector); 기능 추가
 * init, destroy, start, stop 기능을 용도에 맞게 수정
 
-version 0.1
+**Ver 0.1**
 * 최초 기능 구현
 
 ## API
