@@ -2,6 +2,9 @@
 이미지를 크게 보기 어려운 모바일 환경에서 최대한 큰 사이즈로 화면에 보여주기 위한 플러그인입니다.   
 단순히 전체화면 크기로 보여주는 것이 아니라 스크롤이 생기면서 가장 크게 보여줄 수 있도록 구현되었습니다.
 
+## Demo page
+https://project.kurien.net/kreFullImage/
+
 ## Update
 **Ver 0.2**
 * README 문서 작성
