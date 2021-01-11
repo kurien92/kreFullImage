@@ -6,6 +6,11 @@
 https://project.kurien.net/kreFullImage/
 
 ## Update
+**Ver 0.3**
+* 풀사이즈 해제 시 img 태그에 지정되어있던 width, height가 사라지는 이슈 개선
+* 배경색을 지정할 수 있는 옵션 추가
+* 문서 내 오타 수정
+
 **Ver 0.2**
 * README 문서 작성
 * fullImage.fullSize(imgSelector); 기능 추가
@@ -23,6 +28,7 @@ var fullImage = kreFullImage({
 	targets: "#images",
 	imageWrapClass: "fullImageWrap",
 	fullSizeActiveClass: "fullImageWrapActive",
+	backgroundColor: "#ffffff",
 	event: {
 		initFullImage: function() {
 			console.log("initFullImage event");
@@ -36,17 +42,17 @@ var fullImage = kreFullImage({
 		stopFullImage: function() {
 			console.log("stopFullImage event");
 		},
-		afterFullSize: function(_this) {
-			console.log("afterFullSize event", _this);
+		beforeFullSize: function(_this, originWidth, originHeight) {
+			console.log("beforeFullSize event", _this, originWidth, originHeight);
 		},
-		beforeFullSize: function(_this) {
-			console.log("beforeFullSize event", _this);
+		afterFullSize: function(_this, originWidth, originHeight) {
+			console.log("afterFullSize event", _this, originWidth, originHeight);
 		},
-		beforeOriginSize: function(_this) {
-			console.log("beforeOriginSize event", _this);
+		beforeOriginSize: function(_this, originWidth, originHeight) {
+			console.log("beforeOriginSize event", _this, originWidth, originHeight);
 		},
-		afterOriginSize: function(_this) {
-			console.log("afterOriginSize event", _this);
+		afterOriginSize: function(_this, originWidth, originHeight) {
+			console.log("afterOriginSize event", _this, originWidth, originHeight);
 		},
 		resizedFullSize: function(activeClass) {
 			console.log("resizedFullSize event", activeClass);
@@ -62,10 +68,10 @@ var fullImage = kreFullImage({
 * ```event.destroyFullImage: Function()``` kreFullImage가 destroy 되기 전에 이벤트가 발생합니다.
 * ```event.startFullImage: Function()``` kreFullImage가 시작된 후 이벤트가 발생합니다.
 * ```event.stopFullImage: Function()``` kreFullImage가 중지되기 전 이벤트가 발생합니다.
-* ```event.afterFullSize: Function(_this)``` 이미지가 최대화 되기 전 이벤트가 발생합니다.
-* ```event.beforeFullSize: Function(_this)``` 이미지가 최대화 된 후 이벤트가 발생합니다.
-* ```event.beforeOriginSize: Function(_this)``` 이미지가 원래 상태로 돌아오기 전 이벤트가 발생합니다.
-* ```event.afterOriginSize: Function(_this)``` 이미지가 원래 상태로 돌아온 후 이벤트가 발생합니다.
+* ```event.beforeFullSize: Function(_this, originWidth, originHeight)``` 이미지가 최대화 되기 전 이벤트가 발생합니다.
+* ```event.afterFullSize: Function(_this, originWidth, originHeight)``` 이미지가 최대화 된 후 이벤트가 발생합니다.
+* ```event.beforeOriginSize: Function(_this, originWidth, originHeight)``` 이미지가 원래 상태로 돌아오기 전 이벤트가 발생합니다.
+* ```event.afterOriginSize: Function(_this, originWidth, originHeight)``` 이미지가 원래 상태로 돌아온 후 이벤트가 발생합니다.
 * ```event.resizedFullSize: Function(activeClass)``` 이미지가 fullSize된 상태에서 화면 갱신이 일어난 후 발생합니다.
 
 ### fullImage.start();

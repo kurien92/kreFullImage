@@ -10,7 +10,7 @@
 
 	<style>
 		#images {
-			width: 400px;
+			width: 800px;
 		}
 
 		#images img {
@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div id="images">
-		<img src="img/sample.jpg" alt="sample image">
+		<img src="img/sample.jpg" alt="sample image" style="width: 400px; height: 225px;">
 	</div>
 
 	<script>
@@ -41,17 +41,17 @@
 				stopFullImage: function() {
 					console.log("stopFullImage event");
 				},
-				beforeFullSize: function(_this) {
-					console.log("beforeFullSize event", _this);
+				beforeFullSize: function(_this, originWidth, originHeight) {
+					console.log("beforeFullSize event", _this, originWidth, originHeight);
 				},
-				afterFullSize: function(_this) {
-					console.log("afterFullSize event", _this);
+				afterFullSize: function(_this, originWidth, originHeight) {
+					console.log("afterFullSize event", _this, originWidth, originHeight);
 				},
-				beforeOriginSize: function(_this) {
-					console.log("beforeOriginSize event", _this);
+				beforeOriginSize: function(_this, originWidth, originHeight) {
+					console.log("beforeOriginSize event", _this, originWidth, originHeight);
 				},
-				afterOriginSize: function(_this) {
-					console.log("afterOriginSize event", _this);
+				afterOriginSize: function(_this, originWidth, originHeight) {
+					console.log("afterOriginSize event", _this, originWidth, originHeight);
 				},
 				resizedFullSize: function(activeClass) {
 					console.log("resizedFullSize event", activeClass);

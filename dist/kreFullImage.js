@@ -1,5 +1,5 @@
 /**
- * kreFullImage v0.2
+ * kreFullImage v0.3
  * https://github.com/kurien92/kreFullImage
  */
 var kreFullImage = (function(options) {
@@ -9,15 +9,16 @@ var kreFullImage = (function(options) {
 		targets: "#images",
 		imageWrapClass: "fullImageWrap",
 		fullSizeActiveClass: "fullImageWrapActive",
+		backgroundColor: "#ffffff",
 		event: {
 			initFullImage: function() {},
 			destroyFullImage: function() {},
 			startFullImage: function() {},
 			stopFullImage: function() {},
-			beforeFullSize: function(_this) {},
-			afterFullSize: function(_this) {},
-			beforeOriginSize: function(_this) {},
-			afterOriginSize: function(_this) {},
+			beforeFullSize: function(_this, originWidth, originHeight) {},
+			afterFullSize: function(_this, originWidth, originHeight) {},
+			beforeOriginSize: function(_this, originWidth, originHeight) {},
+			afterOriginSize: function(_this, originWidth, originHeight) {},
 			resizedFullSize: function(activeClass) {}
 		}
 	}
@@ -33,6 +34,7 @@ var kreFullImage = (function(options) {
 		}
 
 		var targetImages = $(opts.targets).find("img");
+
 		targetImages.wrap($("<div>", {
 			class: opts.imageWrapClass
 		}));
@@ -99,14 +101,21 @@ var kreFullImage = (function(options) {
 	}
 
 	function _fullSize(_this) {
-		opts.event.beforeFullSize(_this);
+		var originWidth = $(_this).children('img')[0].style.width || 'auto';
+		var originHeight = $(_this).children('img')[0].style.height || 'auto';
+
+		opts.event.beforeFullSize(_this, originWidth, originHeight);
+		
+		$(_this).attr('data-width', originWidth);
+		$(_this).attr('data-height', originHeight);
 
 		$("body").addClass("hide");
 		$(_this).addClass(opts.fullSizeActiveClass);
+		$(_this).css("backgroundColor", opts.backgroundColor);
 
 		_fullSizing(_this);
 
-		opts.event.afterFullSize(_this);
+		opts.event.afterFullSize(_this, originWidth, originHeight);
 	}
 
 	function _fullSizing(_this) {
@@ -125,14 +134,21 @@ var kreFullImage = (function(options) {
 	}
 
 	function _originSize(_this) {
-		opts.event.beforeOriginSize(_this);
+		var originWidth = $(_this).attr('data-width');
+		var originHeight = $(_this).attr('data-height');
+
+		opts.event.beforeOriginSize(_this, originWidth, originHeight);
 
 		$("body").removeClass("hide");
 		$(_this).removeAttr("style");
+		$(_this).removeAttr('data-width');
+		$(_this).removeAttr('data-height');
+		
 		$(_this).children("img").removeAttr("style");
+		$(_this).children("img").css({width: originWidth, height: originHeight});
 		$(_this).removeClass(opts.fullSizeActiveClass);
-
-		opts.event.afterOriginSize(_this);
+		
+		opts.event.afterOriginSize(_this, originWidth, originHeight);
 	}
 
 	function _resizeFullSize() {
